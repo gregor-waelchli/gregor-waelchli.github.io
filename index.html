@@ -3,31 +3,99 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hello from @Gregor_83</title>
+  <title>✨ Mia's World ✨</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1>Hello, world! 👋</h1>
-    <p>Welcome to my tiny homepage – hosted free on GitHub Pages.</p>
+  <!-- Sparkly Header -->
+  <header class="hero">
+    <div class="sparkles">✨</div>
+    <h1>Hi, I'm <span class="name">Mia</span>! 👋</h1>
+    <p class="tagline">11 years old • Switzerland 🇨🇭 • Dreamer & Creator</p>
   </header>
 
-  <main>
-    <section>
-      <h2>About me</h2>
-      <p>I'm <strong>@Gregor_83</strong> from Switzerland 🇨🇭.<br>
-         This is a static site with just HTML, CSS and a few pictures.</p>
-    </section>
+  <!-- About Me -->
+  <section class="about">
+    <div class="card">
+      <h2>🌟 About Me</h2>
+      <p>I love <strong>drawing</strong>, <strong>horses</strong>, and making <strong>YouTube videos</strong>!  
+         I have a fluffy cat named <em>Whiskers</em> 🐱 and I dream of becoming a vet one day.</p>
+      <img src="assets/mia.jpg" alt="Mia smiling with her cat" class="profile-pic" />
+    </div>
+  </section>
 
-    <section class="gallery">
-      <h2>Pictures</h2>
-      <img src="assets/photo.jpg" alt="My picture" />
-      <!-- add more <img> tags here -->
-    </section>
-  </main>
+  <!-- My Hobbies -->
+  <section class="hobbies">
+    <h2>🎨 My Favorite Hobbies</h2>
+    <div class="grid">
+      <div class="hobby-card">
+        <img src="assets/alyssia_nach_wettkampf.jpg" alt="Colorful drawings" />
+        <h3>Art & Drawing</h3>
+        <p>I use crayons, markers, and digital tablets!</p>
+      </div>
+      <div class="hobby-card">
+        <img src="assets/horse.jpg" alt="Riding a pony" />
+        <h3>Horse Riding</h3>
+        <p>Every Saturday at the stable 🐴</p>
+      </div>
+      <div class="hobby-card">
+        <img src="assets/youtube.jpg" alt="Filming with phone" />
+        <h3>YouTube</h3>
+        <p>I make slime tutorials and vlogs!</p>
+      </div>
+    </div>
+  </section>
 
+  <!-- Gallery -->
+  <section class="gallery">
+    <h2>📸 My Gallery</h2>
+    <div class="photo-grid">
+      <img src="assets/geburtstag.jpg" alt="Rainbow unicorn drawing" />
+      <img src="assets/adler.jpg" alt="Whiskers sleeping" />
+      <img src="assets/muffins.jpg" alt="Glitter slime" />
+      <img src="assets/pony.jpg" alt="Pony named Luna" />
+      <img src="assets/birthday.jpg" alt="11th birthday cake" />
+      <img src="assets/friends.jpg" alt="With best friends" />
+    </div>
+  </section>
+
+  <!-- Videos -->
+  <section class="videos">
+    <h2>🎥 My Videos</h2>
+    <div class="video-grid">
+      <!-- Video 1 -->
+      <div class="video-wrapper">
+        <video controls poster="assets/slime.jpg">
+          <source src="assets/snowboard.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <p><strong>How to Make Galaxy Slime 🌌</strong></p>
+      </div>
+
+      <!-- Video 2 -->
+      <div class="video-wrapper">
+        <video controls poster="assets/pony.jpg">
+          <source src="assets/wettkampf_reck_fail.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </source>
+        </video>
+        <p><strong>A Day with Luna 🐴</strong></p>
+      </div>
+    </div>
+
+    <p class="channel-link">
+      <a href="mailto:mia@example.com">📧 Want more? Email me!</a>
+    </p>
+  </section>
+  
+  <!-- Footer -->
   <footer>
-    <p>© 2025 @Gregor_83 – <a href="https://github.com/gregor-waelchli">GitHub</a></p>
+    <p>© 2025 Mia's World • Made with 💖 on GitHub Pages</p>
+    <p>
+      <a href="mailto:mia@example.com">📧 Email</a> • 
+      <a href="https://instagram.com/mia_world" target="_blank">📸 Instagram</a>
+    </p>
   </footer>
 </body>
 </html>

@@ -1,12 +1,172 @@
-/* Simple, clean look – feel free to edit */
+/* 🎀 Mia's Beautiful Static Homepage – 100% static, no JS needed */
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: system-ui, sans-sans-serif; line-height:1.6; background:#f9f9fb; color:#222; }
-header, main, footer { padding:2rem; max-width:800px; margin:auto; }
-header { text-align:center; background:#0066cc; color:white; border-radius:8px 8px 0 0; }
-h1 { font-size:2.5rem; margin-bottom:0.5rem; }
-h2 { margin-top:1.5rem; color:#0066cc; }
-section { margin-bottom:2rem; }
-.gallery img { max-width:100%; height:auto; border-radius:8px; margin-top:1rem; display:block; }
-footer { text-align:center; font-size:0.9rem; color:#666; border-top:1px solid #ddd; padding-top:1rem; }
-a { color:#0066cc; text-decoration:none; }
-a:hover { text-decoration:underline; }
+body {
+  font-family: 'Comic Neue', cursive;
+  background: linear-gradient(135deg, #fdf2f8 0%, #e0f2fe 100%);
+  color: #333;
+  line-height: 1.7;
+}
+
+/* Sparkly Header */
+.hero {
+  text-align: center;
+  padding: 4rem 1rem 3rem;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23ffd700"/><animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/></svg>') repeat;
+  position: relative;
+  overflow: hidden;
+}
+.sparkles {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  animation: sparkle 3s infinite;
+}
+@keyframes sparkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+.name { 
+  font-family: 'Pacifico', cursive; 
+  font-size: 3.5rem; 
+  color: #ff6bce;
+  text-shadow: 0 3px 6px rgba(255,107,206,0.3);
+}
+.tagline {
+  font-size: 1.3rem;
+  color: #555;
+  margin-top: 0.5rem;
+}
+
+/* Cards & Sections */
+section { padding: 2rem 1rem; max-width: 1000px; margin: auto; }
+h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  color: #ff6bce;
+  position: relative;
+}
+h2::after {
+  content: '✨';
+  margin-left: 10px;
+  font-size: 1.5rem;
+}
+
+/* About Card */
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(255,107,206,0.15);
+  text-align: center;
+}
+.profile-pic {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 1rem auto;
+  border: 6px solid #ffd1dc;
+  display: block;
+}
+
+/* Hobby Grid */
+.grid, .photo-grid, .video-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-top: 1rem;
+}
+.hobby-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+.hobby-card:hover { transform: translateY(-8px); }
+.hobby-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+.hobby-card h3 {
+  padding: 1rem 0.8rem 0.5rem;
+  color: #ff6bce;
+  font-size: 1.3rem;
+}
+.hobby-card p {
+  padding: 0 0.8rem 1rem;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+/* Gallery */
+.photo-grid img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+.photo-grid img:hover {
+  transform: scale(1.05);
+}
+
+/* Videos */
+.video-wrapper {
+  position: relative;
+  background: #000;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+.video-wrapper iframe {
+  width: 100%;
+  height: 200px;
+  border: none;
+}
+.video-wrapper p {
+  padding: 0.8rem;
+  background: white;
+  margin: 0;
+  font-weight: bold;
+  color: #ff6bce;
+}
+.channel-link {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+.channel-link a {
+  background: #ff6bce;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+}
+.channel-link a:hover {
+  background: #ff4dae;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: rgba(255,255,255,0.8);
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #777;
+}
+footer a {
+  color: #ff6bce;
+  text-decoration: none;
+}
+footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .name { font-size: 2.5rem; }
+  .grid, .photo-grid, .video-grid { grid-template-columns: 1fr; }
+}
