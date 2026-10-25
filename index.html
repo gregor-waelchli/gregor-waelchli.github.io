@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gregor Wälchli | Technology & Exploration</title>
+  <meta name="description" content="Personal homepage of Gregor Wälchli – Swisscom, Kubernetes, AI, Android development. Based in Fraubrunnen, Switzerland.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #05070f;
+      --bg-card: rgba(12, 18, 36, 0.72);
+      --border: rgba(100, 180, 255, 0.18);
+      --accent: #4cc9f0;
+      --accent-2: #7b2cbf;
+      --text: #e8f0ff;
+      --text-muted: #9bb0d0;
+      --glow: 0 0 24px rgba(76, 201, 240, 0.35);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Starfield background */
+    .stars {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+        radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1.5px 1.5px at 50px 160px, #fff, transparent),
+        radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1.5px 1.5px at 130px 80px, #fff, transparent),
+        radial-gradient(1px 1px at 160px 120px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 200px 50px, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 250px 180px, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 300px 90px, #fff, transparent),
+        radial-gradient(1px 1px at 350px 140px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1.5px 1.5px at 400px 60px, #fff, transparent),
+        radial-gradient(1px 1px at 450px 200px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 500px 30px, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 550px 110px, #fff, transparent),
+        radial-gradient(1px 1px at 600px 170px, rgba(255,255,255,0.7), transparent);
+      background-size: 650px 220px;
+      animation: drift 120s linear infinite;
+      opacity: 0.55;
+    }
+
+    .stars::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(76, 201, 240, 0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 80%, rgba(123, 44, 191, 0.07) 0%, transparent 50%);
+    }
+
+    @keyframes drift {
+      from { background-position: 0 0; }
+      to { background-position: 650px 220px; }
+    }
+
+    /* Layout */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 0;
+      background: rgba(5, 7, 15, 0.75);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 0 4rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.9rem;
+      background: rgba(76, 201, 240, 0.1);
+      border: 1px solid rgba(76, 201, 240, 0.3);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      width: fit-content;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    h1 .highlight {
+      background: linear-gradient(120deg, var(--accent), #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #4cc9f0, #4361ee);
+      color: #05070f;
+      box-shadow: var(--glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 32px rgba(76, 201, 240, 0.5);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(76, 201, 240, 0.06);
+    }
+
+    /* Sections */
+    section {
+      padding: 5rem 0;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      border: 2px solid var(--accent);
+      border-radius: 2px;
+      transform: rotate(45deg);
+    }
+
+    .section-lead {
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 560px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      backdrop-filter: blur(8px);
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+
+    .card:hover {
+      border-color: rgba(76, 201, 240, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    /* About / CV */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 700px) {
+      .about-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    .about-text p {
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+    }
+
+    .about-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .cv-list {
+      list-style: none;
+    }
+
+    .cv-item {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cv-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .cv-item:first-child {
+      padding-top: 0;
+    }
+
+    .cv-role {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .cv-meta {
+      font-size: 0.875rem;
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+
+    .cv-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .skill {
+      padding: 0.3rem 0.75rem;
+      background: rgba(76, 201, 240, 0.08);
+      border: 1px solid rgba(76, 201, 240, 0.2);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .projects-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .project-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+      background: linear-gradient(135deg, rgba(76, 201, 240, 0.15), rgba(123, 44, 191, 0.15));
+      border: 1px solid var(--border);
+    }
+
+    .project-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.03em;
+    }
+
+    .project-status {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+
+    .status-live {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .status-dev {
+      background: rgba(251, 191, 36, 0.12);
+      color: #fbbf24;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+    }
+
+    .project-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      flex-grow: 1;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+
+    .project-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: gap 0.2s;
+    }
+
+    .project-link:hover {
+      gap: 0.55rem;
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.25s;
+      min-width: 180px;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .contact-link svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .contact-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .contact-value {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Mobile nav */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(5, 7, 15, 0.95);
+        flex-direction: column;
+        padding: 1rem 1.5rem;
+        gap: 1rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+
+  <nav>
+    <div class="container">
+      <a href="#" class="logo">GW<span>.</span></a>
+      <button class="nav-toggle" aria-label="Menu" id="navToggle">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Connect</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="hero-badge">Based in Fraubrunnen, Switzerland</div>
+      <h1>Gregor <span class="highlight">Wälchli</span></h1>
+      <p class="hero-sub">
+        Technology professional at Swisscom. Exploring cloud-native systems, reinforcement learning, and mobile development.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">About</h2>
+      <p class="section-lead">High-level overview of experience and focus areas.</p>
+
+      <div class="about-grid">
+        <div class="card about-text">
+          <p>
+            I work at <strong>Swisscom</strong>, Switzerland’s leading telecommunications and ICT company, where I contribute to modern infrastructure and digital solutions.
+          </p>
+          <p>
+            Outside of day-to-day work I’m drawn to practical systems that combine scale and intelligence — Kubernetes for orchestration, GPU-accelerated training for machine learning, and thoughtful mobile experiences.
+          </p>
+          <p>
+            I enjoy building small, focused tools and experiments that can run in real environments, whether that’s a training loop on a cluster or an Android app still taking shape.
+          </p>
+          <div class="skills">
+            <span class="skill">Kubernetes</span>
+            <span class="skill">Python</span>
+            <span class="skill">PyTorch</span>
+            <span class="skill">FastAPI</span>
+            <span class="skill">Android</span>
+            <span class="skill">Cloud Native</span>
+            <span class="skill">German</span>
+            <span class="skill">English</span>
+            <span class="skill">French</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <ul class="cv-list">
+            <li class="cv-item">
+              <div class="cv-role">Swisscom</div>
+              <div class="cv-meta">Technology &amp; ICT · Switzerland</div>
+              <div class="cv-desc">Contributing to telecommunications and digital infrastructure in one of Switzerland’s key technology organisations.</div>
+            </li>
+            <li class="cv-item">
+              <div class="cv-role">Open Source &amp; Experiments</div>
+              <div class="cv-meta">Personal projects</div>
+              <div class="cv-desc">Kubernetes-based ML training, gallery tooling, and Android development.</div>
+            </li>
+            <li class="cv-item">
+              <div class="cv-role">Location</div>
+              <div class="cv-meta">Fraubrunnen, Bern region</div>
+              <div class="cv-desc">Switzerland</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-title">My Projects</h2>
+      <p class="section-lead">Selected work spanning reinforcement learning, cloud orchestration, and mobile.</p>
+
+      <div class="projects-grid">
+        <!-- kube-slither -->
+        <article class="card project-card">
+          <div class="project-icon">🐍</div>
+          <h3 class="project-title">Kube-Slither</h3>
+          <span class="project-status status-live">Open Source</span>
+          <p class="project-desc">
+            Reinforcement Learning Snake at scale. Train intelligent agents with Deep Q-Networks on Kubernetes, accelerated by GPUs. Real-time visualisation via FastAPI and WebSocket so you can watch the snake improve live in the browser.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">Kubernetes</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">DQN</span>
+          </div>
+          <a href="https://github.com/gregor-waelchli/kube-slither" class="project-link" target="_blank" rel="noopener">
+            View on GitHub →
+          </a>
+        </article>
+
+        <!-- Gruselhaus -->
+        <article class="card project-card">
+          <div class="project-icon">🏚️</div>
+          <h3 class="project-title">Gruselhaus</h3>
+          <span class="project-status status-dev">In Development</span>
+          <p class="project-desc">
+            An Android application currently under active development. Exploring mobile experiences with a distinctive atmosphere and careful attention to interaction design.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Android</span>
+            <span class="tag">Mobile</span>
+            <span class="tag">In Progress</span>
+          </div>
+          <span class="project-link" style="color: var(--text-muted); cursor: default;">
+            Coming soon
+          </span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">Connect</h2>
+      <p class="section-lead">Find me on the usual platforms.</p>
+
+      <div class="contact-grid">
+        <a href="https://github.com/gregor-waelchli" class="contact-link" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <div>
+            <div class="contact-label">GitHub</div>
+            <div class="contact-value">gregor-waelchli</div>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/gregor-w%C3%A4lchli-3ab8a1136/" class="contact-link" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          <div>
+            <div class="contact-label">LinkedIn</div>
+            <div class="contact-value">Gregor Wälchli</div>
+          </div>
+        </a>
+
+        <a href="https://x.com/Gregor_83" class="contact-link" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.792l7.719-8.835L1.254 2.25H8.08l4.251 5.622 5.913-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <div>
+            <div class="contact-label">X</div>
+            <div class="contact-value">@Gregor_83</div>
+          </div>
+        </a>
+
+        <a href="https://www.facebook.com/gregor.waelchli/" class="contact-link" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <div>
+            <div class="contact-label">Facebook</div>
+            <div class="contact-value">gregor.waelchli</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© <span id="year"></span> Gregor Wälchli · Built for GitHub Pages</p>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('open');
+    });
+
+    // Close mobile nav on link click
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => links.classList.remove('open'));
+    });
+
+    // Subtle parallax on starfield (lightweight)
+    const stars = document.querySelector('.stars');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY * 0.15;
+      stars.style.transform = `translateY(${y}px)`;
+    }, { passive: true });
+  </script>
+</body>
+</html>
